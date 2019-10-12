@@ -3,11 +3,9 @@ package model;
 public class Knoten {
 
     private Integer id;
-    private String name;
 
-    public Knoten(Integer id, String name) {
+    public Knoten(Integer id) {
         this.id = id;
-        this.name = name;
     }
 
     public Integer getId() {
@@ -18,11 +16,4 @@ public class Knoten {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
