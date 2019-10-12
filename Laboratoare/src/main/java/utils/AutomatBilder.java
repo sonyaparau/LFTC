@@ -80,7 +80,7 @@ public class AutomatBilder {
         }
     }
 
-    public void createOutputFile(EndlicherAutomat endlicherAutomat){
+    public void writeAutomatInFile(EndlicherAutomat endlicherAutomat){
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(FILE_OUTPUT, true));

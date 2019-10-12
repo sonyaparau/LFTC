@@ -4,10 +4,17 @@ import model.*;
 import utils.AutomatBilder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
+
+    public static boolean testeAutomat(EndlicherAutomat endlicherAutomat, String wort){
+        for(int i=0; i< wort.length(); i++){
+            if(!endlicherAutomat.getZeichen().contains(String.valueOf(wort.charAt(i))))
+                return false;
+        }
+        return true;
+    }
 
     public static void main(String[] args) {
 
@@ -15,7 +22,7 @@ public class Main {
         AutomatBilder automatBilder = new AutomatBilder();
         automatBilder.readAutomatFromFile();
 
-        //schreibt in einer Textdatei
+//        schreibt in einer Textdatei
         EndlicherAutomat endlicherAutomat = new EndlicherAutomat();
         endlicherAutomat.setAnzahlKnoten(4);
         endlicherAutomat.setAnzahlZeichen(3);
@@ -49,7 +56,9 @@ public class Main {
         endzustande.add(endzustand1);
         endzustande.add(endzustand2);
         endlicherAutomat.setEndzustande(endzustande);
-        automatBilder.createOutputFile(endlicherAutomat);
+        automatBilder.writeAutomatInFile(endlicherAutomat);
+
+        System.out.println(testeAutomat(endlicherAutomat,"ab"));
 
     }
 }
