@@ -4,12 +4,12 @@ public class Kante {
 
     private String gewicht;
     private Knoten von;
-    private Knoten bis;
+    private Knoten nach;
 
-    public Kante(String gewicht, Knoten von, Knoten bis) {
+    public Kante(String gewicht, Knoten von, Knoten nach) {
         this.gewicht = gewicht;
         this.von = von;
-        this.bis = bis;
+        this.nach = nach;
     }
 
     public String getGewicht() {
@@ -28,12 +28,12 @@ public class Kante {
         this.von = von;
     }
 
-    public Knoten getBis() {
-        return bis;
+    public Knoten getNach() {
+        return nach;
     }
 
-    public void setBis(Knoten bis) {
-        this.bis = bis;
+    public void setNach(Knoten nach) {
+        this.nach = nach;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Kante {
         return "Kante{" +
                 "gewicht='" + gewicht + '\'' +
                 ", von=" + von +
-                ", bis=" + bis +
+                ", nach=" + nach +
                 '}';
     }
 }

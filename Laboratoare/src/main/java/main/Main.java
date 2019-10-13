@@ -2,13 +2,14 @@ package main;
 
 import model.*;
 import utils.AutomatBilder;
+import utils.AutomatDarsteller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-    public static boolean testeAutomat(EndlicherAutomat endlicherAutomat, String wort){
+   private static boolean akzeptiertString(EndlicherAutomat endlicherAutomat, String wort){
         for(int i=0; i< wort.length(); i++){
             if(!endlicherAutomat.getZeichen().contains(String.valueOf(wort.charAt(i))))
                 return false;
@@ -58,7 +59,10 @@ public class Main {
         endlicherAutomat.setEndzustande(endzustande);
         automatBilder.writeAutomatInFile(endlicherAutomat);
 
-        System.out.println(testeAutomat(endlicherAutomat,"ab"));
+        System.out.println(akzeptiertString(endlicherAutomat,"ab"));
+
+        AutomatDarsteller automatDarsteller = new AutomatDarsteller();
+        automatDarsteller.darstelleAutomat(endlicherAutomat);
 
     }
 }

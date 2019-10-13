@@ -20,15 +20,14 @@ public class AutomatBilder {
     public void readAutomatFromFile(){
         BufferedReader reader;
         try {
-            Integer lineCounter = 0;
+            Integer lineCounter = 0; //auf welcher Linie wir uns im Moment befinden
             Integer anzahlKanten = 0;
-            Integer currentLine = 0;
+            Integer kantenCounter = 0; //fur die n Kanten
             List<Kante> kanten = new ArrayList<>();
             List<Endzustand> endzustande = new ArrayList<>();
             reader = new BufferedReader(new FileReader(FILE_INPUT));
             String line = reader.readLine();
             while (line != null) {
-                //read next line
                 lineCounter ++;
                 if(lineCounter == 1){
                     endlicherAutomat.setAnzahlKnoten(Integer.parseInt(line));
@@ -37,34 +36,34 @@ public class AutomatBilder {
                     endlicherAutomat.setAnzahlZeichen(Integer.parseInt(line));
                 }
                 if(lineCounter == 3){
-                    String[] gefundeneZeichen = line.split(" ");
+                    String[] gefundeneZeichen = line.split("\\s");
                     List<String> zeichen = new ArrayList<>(Arrays.asList(gefundeneZeichen));
                     endlicherAutomat.setZeichen(zeichen);
                 }
                 if(lineCounter == 4){
                     anzahlKanten = Integer.parseInt(line);
                     endlicherAutomat.setAnzahlKanten(anzahlKanten);
-                    currentLine = lineCounter + anzahlKanten;
+                    kantenCounter = lineCounter + anzahlKanten;
                 }
-                if(anzahlKanten != 0 && lineCounter >= 5 && lineCounter <= currentLine){
-                    String[] kantenInformationen = line.split(" ");
-                    List<String> zeichen = new ArrayList<>(Arrays.asList(kantenInformationen));
+                if(anzahlKanten != 0 && lineCounter >= 5 && lineCounter <= kantenCounter){
+                    String[] kantenInformationen = line.split("\\s");
+//                    List<String> zeichen = new ArrayList<>(Arrays.asList(kantenInformationen));
                     Knoten von = new Knoten(Integer.parseInt(kantenInformationen[0]));
                     Knoten bis = new Knoten(Integer.parseInt(kantenInformationen[1]));
                     Kante neueKante = new Kante(kantenInformationen[2],von, bis);
                     kanten.add(neueKante);
-                    if(lineCounter == currentLine)
+                    if(lineCounter.equals(kantenCounter))
                         endlicherAutomat.setKanten(kanten);
                 }
-                if(lineCounter >= 4 && lineCounter == currentLine + 1){
+                if(lineCounter >= 4 && lineCounter == kantenCounter + 1){
                     Anfangszustand anfangszustand = new Anfangszustand(Integer.parseInt(line));
                     endlicherAutomat.setAnfangszustand(anfangszustand);
                 }
-                if(lineCounter >= 4 && lineCounter == currentLine + 2){
+                if(lineCounter >= 4 && lineCounter == kantenCounter + 2){
                     endlicherAutomat.setAnzahlEndzustande(Integer.parseInt(line));
                 }
-                if(lineCounter >= 4 && lineCounter == currentLine + 3){
-                    String[] endKnoten = line.split(" ");
+                if(lineCounter >= 4 && lineCounter == kantenCounter + 3){
+                    String[] endKnoten = line.split("\\s");
                     for(int i = 0; i < endlicherAutomat.getAnzahlEndzustande(); i++){
                         Endzustand neuerKnoten = new Endzustand(Integer.parseInt(endKnoten[i]));
                         endzustande.add(neuerKnoten);
@@ -83,20 +82,32 @@ public class AutomatBilder {
     public void writeAutomatInFile(EndlicherAutomat endlicherAutomat){
         BufferedWriter writer;
         try {
-            writer = new BufferedWriter(new FileWriter(FILE_OUTPUT, true));
-            writer.append(endlicherAutomat.getAnzahlKnoten() + "\n");
-            writer.append(endlicherAutomat.getAnzahlZeichen()+ "\n");
+            writer = new BufferedWriter(new FileWriter(FILE_OUTPUT, false));
+            writer.append(endlicherAutomat.getAnzahlKnoten().toString());
+            writer.append("\n");
+            writer.append(endlicherAutomat.getAnzahlZeichen().toString());
+            writer.append("\n");
             for(String zeichen: endlicherAutomat.getZeichen()){
                 writer.append(zeichen);
                 writer.append(" ");
             }
             writer.append("\n");
-            writer.append(endlicherAutomat.getAnzahlKanten()+ "\n");
+            writer.append(endlicherAutomat.getAnzahlKanten().toString());
+            writer.append("\n");
             for(Kante kante: endlicherAutomat.getKanten()){
-                writer.append(kante.getVon().getId()+ " "+ kante.getBis().getId() + " "+ kante.getGewicht()+ "\n");
+                StringBuilder bildeKante = new StringBuilder();
+                bildeKante.append(kante.getVon().getId());
+                bildeKante.append(" ");
+                bildeKante.append(kante.getNach().getId());
+                bildeKante.append(" ");
+                bildeKante.append(kante.getGewicht());
+                bildeKante.append("\n");
+                writer.append(bildeKante);
             }
-            writer.append(endlicherAutomat.getAnfangszustand().getId() + "\n");
-            writer.append(endlicherAutomat.getAnzahlEndzustande()+ "\n");
+            writer.append(endlicherAutomat.getAnfangszustand().getId().toString());
+            writer.append("\n");
+            writer.append(endlicherAutomat.getAnzahlEndzustande().toString());
+            writer.append("\n");
             for(Endzustand endzustand: endlicherAutomat.getEndzustande()){
                 writer.append(endzustand.getId().toString());
                 writer.append(" ");
