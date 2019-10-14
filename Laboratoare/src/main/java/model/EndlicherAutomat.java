@@ -2,6 +2,15 @@ package model;
 
 import java.util.List;
 
+/**
+ * @author Sonya
+ * Stellt die Datenstruktur eines endlichen Automaten
+ * als Erweiterung eines orientierten Graphen dar.
+ * Ein endlicher Automaten hat einen Anfangsknoten,
+ * einen oder mehrere Endknoten und optionale
+ * zusatzliche Knoten. Zwischen den Knoten
+ * hat man gerichtete und gewichtete Kanten.
+ * */
 public class EndlicherAutomat {
 
     private Integer anzahlKnoten;

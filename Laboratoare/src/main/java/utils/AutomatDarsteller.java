@@ -11,22 +11,41 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author Sonya
+ * Erstellt dynamisch eine JS-Datei (graph.js), die den endlichen Automat
+ * darstellt. Die Liste der Knoten und der Kantent werden abhangend
+ * von dem gegebenen Automat gebildet.
+ * */
 public class AutomatDarsteller {
     private static final String HTML_FILE = "D:\\LFTC\\Laboratoare\\src\\vis.js\\index.html";
     private static final String JS_FILE = "D:\\LFTC\\Laboratoare\\src\\vis.js\\graph.js";
 
+    /**
+     * Offnet den endlichen Automaten in dem Browser und
+     * stellt es im Form eines Graphen dar.
+     * @param endlicherAutomat - der Automat, der dargestellt
+     *                         werden soll
+     * Exception, falls die HTML-Datei nicht gefunden wurde.
+     * */
     public void darstelleAutomat(EndlicherAutomat endlicherAutomat){
         File htmlFile = new File(HTML_FILE);
         generiereJSAutomat(endlicherAutomat);
         try {
             System.out.println("Bitte warte fur die Darstellung...");
-            Desktop.getDesktop().browse(htmlFile.toURI());
+            Desktop.getDesktop().browse(htmlFile.toURI()); //offnet Datei im Browser
         } catch (IOException e) {
             System.out.println("Datei mit der Darstellung des Automats " +
                     "wurde nicht gefunden: " + e);
         }
     }
 
+    /**
+     * Schreibt in der JS-Datei den Code, der gultig
+     * fur die Erstellung aller endlichen Automaten ist.
+     * Exception, falls die Datei, in der man schreiben soll,
+     * nicht gefunden wurde.
+     * */
     private void generiereJSAutomat(EndlicherAutomat endlicherAutomat){
         String str = "const nodeColor = '#98caf9';\n" +
                 "const startColor = '#ff5530';\n" +
@@ -53,6 +72,13 @@ public class AutomatDarsteller {
         }
     }
 
+    /**
+     * Generiert dynamisch die Liste der Kanten fur die
+     * JS-Datei.
+     * @param endlicherAutomat - Automat, fur welchen die
+     *                         JS-Liste erstellt werden muss.
+     * @return String mit der erstellten JS-Kantenliste
+     * */
     private String generiereJSKanten(EndlicherAutomat endlicherAutomat){
         List<Kante> kanten = endlicherAutomat.getKanten();
         StringBuilder listeKanten = new StringBuilder();
@@ -72,6 +98,13 @@ public class AutomatDarsteller {
         return listeKanten.toString();
     }
 
+    /**
+     * Generiert dynamisch die Liste der Knoten fur die
+     * JS-Datei.
+     * @param endlicherAutomat - Automat, fur welchen die
+     *                         JS-Liste erstellt werden muss.
+     * @return String mit der erstellten JS-Knotenliste
+     * */
     private String generiereJSKnoten(EndlicherAutomat endlicherAutomat){
         StringBuilder listeKnoten = new StringBuilder();
         List<Endzustand> endknoten = endlicherAutomat.getEndzustande();
@@ -102,6 +135,12 @@ public class AutomatDarsteller {
         return listeKnoten.toString();
     }
 
+    /**
+     * Pruft, ob die Liste der Endknoten einen Knoten enthalt, der
+     * einen endlichen Id enthalt, wie der gegebenen Id.
+     * @return true - falls es einen Id in der Liste gibt
+     *         false- falls es keinen Id in der Liste gibt
+     * */
     private boolean enthaltId(final List<Endzustand> endknoten, final Integer id){
         return endknoten.stream().anyMatch(o -> o.getId().equals(id));
     }

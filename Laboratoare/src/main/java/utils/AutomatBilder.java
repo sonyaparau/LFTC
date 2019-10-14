@@ -7,16 +7,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Sonya
+ * Liest und schreibt in/aus einer Datei
+ * einen neuen endlichen Automaten (EA).
+ * */
 public class AutomatBilder {
 
     private static final String FILE_INPUT = "D:\\LFTC\\Laboratoare\\src\\main\\java\\files\\sample1.txt";
     private static final String FILE_OUTPUT = "D:\\LFTC\\Laboratoare\\src\\main\\java\\files\\output.txt";
     private EndlicherAutomat endlicherAutomat;
 
+    /**
+     * Default Konstruktor eines AutomatBilders, der
+     * einen neuen Automat bildet.
+     * */
     public AutomatBilder() {
         endlicherAutomat = new EndlicherAutomat();
     }
 
+    /**
+     * Liest die Datei sample1.txt und bildet einen
+     * neuen EA. Die Datei respektiert den Format
+     * beschrieben in der Dokumentation des Labors.
+     * Exception, falls die Datei, aus der man den
+     *      EA lesen soll, nicht existiert.
+     * */
     public void readAutomatFromFile(){
         BufferedReader reader;
         try {
@@ -28,28 +44,29 @@ public class AutomatBilder {
             reader = new BufferedReader(new FileReader(FILE_INPUT));
             String line = reader.readLine();
             while (line != null) {
-                lineCounter ++;
-                if(lineCounter == 1){
+                lineCounter ++; //aktualisiert den Zahler fur die neue Linie aus der Datei
+                if(lineCounter == 1){ //Linie 1 enthalt die Anzahl der Knoten
                     endlicherAutomat.setAnzahlKnoten(Integer.parseInt(line));
+                    //man generiert auch eine Liste mit allen Knoten des EAs
                     List<Knoten> automatKnoten = generiereKnoten(endlicherAutomat.getAnzahlKnoten());
                     endlicherAutomat.setKnoten(automatKnoten);
                 }
-                if(lineCounter == 2){
+                if(lineCounter == 2){ //Linie 2 enthalt die Anzahl der Zeichen
                     endlicherAutomat.setAnzahlZeichen(Integer.parseInt(line));
                 }
-                if(lineCounter == 3){
-                    String[] gefundeneZeichen = line.split("\\s");
+                if(lineCounter == 3){ //Linie 3 enthalt alle erlaubte Zeichen
+                    String[] gefundeneZeichen = line.split("\\s"); //gesplitten durch space
                     List<String> zeichen = new ArrayList<>(Arrays.asList(gefundeneZeichen));
                     endlicherAutomat.setZeichen(zeichen);
                 }
-                if(lineCounter == 4){
+                if(lineCounter == 4){ //Linie 4 enthalt die Anzahl der Kanten des EAs
                     anzahlKanten = Integer.parseInt(line);
                     endlicherAutomat.setAnzahlKanten(anzahlKanten);
                     kantenCounter = lineCounter + anzahlKanten;
                 }
                 if(anzahlKanten != 0 && lineCounter >= 5 && lineCounter <= kantenCounter){
+                    //liest alle Informationen einer Kante und bildet sie
                     String[] kantenInformationen = line.split("\\s");
-//                    List<String> zeichen = new ArrayList<>(Arrays.asList(kantenInformationen));
                     Knoten von = new Knoten(Integer.parseInt(kantenInformationen[0]));
                     Knoten bis = new Knoten(Integer.parseInt(kantenInformationen[1]));
                     Kante neueKante = new Kante(kantenInformationen[2],von, bis);
@@ -58,13 +75,14 @@ public class AutomatBilder {
                         endlicherAutomat.setKanten(kanten);
                 }
                 if(lineCounter >= 4 && lineCounter == kantenCounter + 1){
+                    //genau die nachste Zeile nach den Kanteninformationen enthalt den Anfangszustand
                     Anfangszustand anfangszustand = new Anfangszustand(Integer.parseInt(line));
                     endlicherAutomat.setAnfangszustand(anfangszustand);
                 }
-                if(lineCounter >= 4 && lineCounter == kantenCounter + 2){
+                if(lineCounter >= 4 && lineCounter == kantenCounter + 2){ //Anzahl der Endzustanden
                     endlicherAutomat.setAnzahlEndzustande(Integer.parseInt(line));
                 }
-                if(lineCounter >= 4 && lineCounter == kantenCounter + 3){
+                if(lineCounter >= 4 && lineCounter == kantenCounter + 3){ //die Endzustande
                     String[] endKnoten = line.split("\\s");
                     for(int i = 0; i < endlicherAutomat.getAnzahlEndzustande(); i++){
                         Endzustand neuerKnoten = new Endzustand(Integer.parseInt(endKnoten[i]));
@@ -74,13 +92,24 @@ public class AutomatBilder {
                 }
                 line = reader.readLine();
             }
+            System.out.println("EA, welcher aus der Datei gelesen wurde ist: ");
             System.out.println(endlicherAutomat);
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Datei, aus der man den EA lesen sollte, wurde nicht" +
+                    "gefunden: " + e);
         }
     }
 
+    /**
+     * Schreibt einen neuen endlichen Automat in der
+     * Datei output.txt. Die Datei respektiert den Format
+     * beschrieben in der Dokumentation des Labors.
+     * @param endlicherAutomat - der EA, der in der Datei
+     *                         geschrieben werden soll
+     * Exception, falls die Datei, in der man den
+     * EA schreiben soll, nicht existiert.
+     * */
     public void writeAutomatInFile(EndlicherAutomat endlicherAutomat){
         BufferedWriter writer;
         try {
@@ -116,10 +145,19 @@ public class AutomatBilder {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Datei, in der man den EA schreiben mochte, wurde nicht" +
+                    "gefunden: " + e);
         }
     }
 
+    /**
+     * Bildet alle Knoten (mit Anfangsknoten und Endknoten)
+     * fur einen EA.
+     * @param anzahlKnoten - Anzahl der Knoten eines EAs
+     *                     fur welche man eine Knotenliste
+     *                     bildet
+     * @return die Liste mit den Knoten eines EAs
+     * */
     public List<Knoten> generiereKnoten(Integer anzahlKnoten){
         List<Knoten> knotenListe = new ArrayList<>();
         for(int i=0; i< anzahlKnoten; i++){

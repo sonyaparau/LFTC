@@ -1,5 +1,13 @@
 package model;
 
+/**
+ * @author Sonya
+ * Stellt die Datenstruktur fur eine Kante
+ * eines Graphen dar.
+ * Enthalt die folgende Attribute: das Gewicht
+ * der Kante, der Knoten von wo die Kante geht,
+ * der Knoten nach welcher die Kante geht.
+ * */
 public class Kante {
 
     private String gewicht;

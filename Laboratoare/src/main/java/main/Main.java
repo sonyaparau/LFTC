@@ -8,6 +8,9 @@ import utils.AutomatTester;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Sonya
+ * */
 public class Main {
 
 
@@ -17,7 +20,7 @@ public class Main {
         AutomatBilder automatBilder = new AutomatBilder();
         automatBilder.readAutomatFromFile();
 
-//        schreibt in einer Textdatei
+        //schreibt in einer Textdatei einen gegebenen Automat
         EndlicherAutomat endlicherAutomat = new EndlicherAutomat();
         endlicherAutomat.setAnzahlKnoten(4);
         endlicherAutomat.setAnzahlZeichen(3);
