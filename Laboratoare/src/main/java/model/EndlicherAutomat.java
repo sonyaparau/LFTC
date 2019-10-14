@@ -11,8 +11,8 @@ public class EndlicherAutomat {
     private List<Kante> kanten;
     private Anfangszustand anfangszustand;
     private Integer anzahlEndzustande;
-   // private List<Knoten> knoten;
     private List<Endzustand> endzustande;
+    private List<Knoten> knoten;
 
     public Integer getAnzahlKnoten() {
         return anzahlKnoten;
@@ -55,7 +55,9 @@ public class EndlicherAutomat {
     }
 
     public Anfangszustand getAnfangszustand() {
-        return anfangszustand;
+        if(anfangszustand != null)
+            return anfangszustand;
+        return null;
     }
 
     public void setAnfangszustand(Anfangszustand anfangszustand) {
@@ -76,6 +78,14 @@ public class EndlicherAutomat {
 
     public void setEndzustande(List<Endzustand> endzustande) {
         this.endzustande = endzustande;
+    }
+
+    public List<Knoten> getKnoten() {
+        return knoten;
+    }
+
+    public void setKnoten(List<Knoten> knoten) {
+        this.knoten = knoten;
     }
 
     @Override

@@ -31,6 +31,8 @@ public class AutomatBilder {
                 lineCounter ++;
                 if(lineCounter == 1){
                     endlicherAutomat.setAnzahlKnoten(Integer.parseInt(line));
+                    List<Knoten> automatKnoten = generiereKnoten(endlicherAutomat.getAnzahlKnoten());
+                    endlicherAutomat.setKnoten(automatKnoten);
                 }
                 if(lineCounter == 2){
                     endlicherAutomat.setAnzahlZeichen(Integer.parseInt(line));
@@ -116,5 +118,14 @@ public class AutomatBilder {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Knoten> generiereKnoten(Integer anzahlKnoten){
+        List<Knoten> knotenListe = new ArrayList<>();
+        for(int i=0; i< anzahlKnoten; i++){
+            Knoten knoten = new Knoten(i);
+            knotenListe.add(knoten);
+        }
+        return knotenListe;
     }
 }

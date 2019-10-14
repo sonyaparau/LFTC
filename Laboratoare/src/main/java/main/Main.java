@@ -3,19 +3,13 @@ package main;
 import model.*;
 import utils.AutomatBilder;
 import utils.AutomatDarsteller;
+import utils.AutomatTester;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-   private static boolean akzeptiertString(EndlicherAutomat endlicherAutomat, String wort){
-        for(int i=0; i< wort.length(); i++){
-            if(!endlicherAutomat.getZeichen().contains(String.valueOf(wort.charAt(i))))
-                return false;
-        }
-        return true;
-    }
 
     public static void main(String[] args) {
 
@@ -34,6 +28,8 @@ public class Main {
         endlicherAutomat.setZeichen(zeichen);
         endlicherAutomat.setAnzahlKanten(7);
         List<Kante> kanten = new ArrayList<>();
+        List<Knoten> knoten = automatBilder.generiereKnoten(endlicherAutomat.getAnzahlKnoten());
+        endlicherAutomat.setKnoten(knoten);
         Kante kante1 = new Kante("a", new Knoten(0), new Knoten(1));
         Kante kante2 = new Kante("b", new Knoten(1), new Knoten(2));
         Kante kante3 = new Kante("c", new Knoten(1), new Knoten(3));
@@ -59,10 +55,16 @@ public class Main {
         endlicherAutomat.setEndzustande(endzustande);
         automatBilder.writeAutomatInFile(endlicherAutomat);
 
-        System.out.println(akzeptiertString(endlicherAutomat,"ab"));
-
         AutomatDarsteller automatDarsteller = new AutomatDarsteller();
         automatDarsteller.darstelleAutomat(endlicherAutomat);
+
+        AutomatTester automatTester = new AutomatTester();
+        //gut
+        System.out.println(automatTester.akzeptiertString(endlicherAutomat,"abb"));
+        //falsch
+        System.out.println(automatTester.akzeptiertString(endlicherAutomat, "xaccbbccbb"));
+        //falsch
+        System.out.println(automatTester.akzeptiertString(endlicherAutomat, "accxbbccbb"));
 
     }
 }
