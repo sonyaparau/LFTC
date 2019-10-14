@@ -10,18 +10,32 @@ import java.util.List;
 
 /**
  * @author Sonya
+ * Teatet din ganze Funktionalitat der Anwendung.
  * */
 public class Main {
 
+    private static EndlicherAutomat endlicherAutomat = new EndlicherAutomat();
+    private static AutomatDarsteller automatDarsteller = new AutomatDarsteller();
+    private static AutomatTester automatTester = new AutomatTester();
 
-    public static void main(String[] args) {
+    public Main(){
+    }
 
-        //liest aus der Textdatei
-        AutomatBilder automatBilder = new AutomatBilder();
+    /**
+     * Erstellt einen EA basierend auf der sample1.txt
+     * Datei.
+     * */
+    private static void erstelleEAAusDerDatei(){
+        AutomatBilder automatBilder  = new AutomatBilder();
         automatBilder.readAutomatFromFile();
+    }
 
-        //schreibt in einer Textdatei einen gegebenen Automat
-        EndlicherAutomat endlicherAutomat = new EndlicherAutomat();
+    /**
+     * Schreibt in der output.txt Datei der gegebene
+     * endliche Automat.
+     * */
+    private static void schreibeEAInDerDatei(){
+        AutomatBilder automatBilder = new AutomatBilder();
         endlicherAutomat.setAnzahlKnoten(4);
         endlicherAutomat.setAnzahlZeichen(3);
         List<String> zeichen = new ArrayList<>();
@@ -57,17 +71,46 @@ public class Main {
         endzustande.add(endzustand2);
         endlicherAutomat.setEndzustande(endzustande);
         automatBilder.writeAutomatInFile(endlicherAutomat);
+    }
 
-        AutomatDarsteller automatDarsteller = new AutomatDarsteller();
+    /**
+     * Stellt einen gegebenen EA als gewichteter, gerichteten
+     * Graphe dar mit Hilfe der JS- und HTML- Dattei dar.
+     * */
+    private static void stelleAutomatDar(){
         automatDarsteller.darstelleAutomat(endlicherAutomat);
+    }
 
-        AutomatTester automatTester = new AutomatTester();
-        //gut
-        System.out.println(automatTester.akzeptiertString(endlicherAutomat,"abb"));
-        //falsch
-        System.out.println(automatTester.akzeptiertString(endlicherAutomat, "xaccbbccbb"));
-        //falsch
-        System.out.println(automatTester.akzeptiertString(endlicherAutomat, "accxbbccbb"));
+    /**
+     * Testet, ob eine gegebene Zeichenkette von dem
+     * EA akzeptiert ist oder nicht.
+     * */
+    private static void testeStrings(){
+        String wort;
+        wort = "a";
+        System.out.println(wort + ": " + automatTester.akzeptiertString(endlicherAutomat,wort)); //falsch
+        wort = "ac";
+        System.out.println(wort + ": " + automatTester.akzeptiertString(endlicherAutomat, wort )); //wahr
+        wort = "ab";
+        System.out.println(wort + ": " + automatTester.akzeptiertString(endlicherAutomat,wort)); //wahr
+        wort = "abz";
+        System.out.println(wort + ": " + automatTester.akzeptiertString(endlicherAutomat,wort)); //falsch
+        wort = "abbbz";
+        System.out.println(wort + ": " + automatTester.akzeptiertString(endlicherAutomat,wort)); //falsch
+        wort = "zabbbac";
+        System.out.println(wort + ": " + automatTester.akzeptiertString(endlicherAutomat,wort)); //falsch
+        wort = "acccccccb";
+        System.out.println(wort + ": " + automatTester.akzeptiertString(endlicherAutomat,wort)); //wahr
+        wort = "acccccbbbb";
+        System.out.println(wort + ": " + automatTester.akzeptiertString(endlicherAutomat,wort)); //wahr
+        wort = "acbcccbb";
+        System.out.println(wort + ": " + automatTester.akzeptiertString(endlicherAutomat,wort)); //wahr
+    }
 
+    public static void main(String[] args) {
+        erstelleEAAusDerDatei();
+        schreibeEAInDerDatei();
+        stelleAutomatDar();
+        testeStrings();
     }
 }
