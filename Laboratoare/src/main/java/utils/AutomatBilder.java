@@ -14,7 +14,7 @@ import java.util.List;
  * */
 public class AutomatBilder {
 
-    private static final String FILE_INPUT = "D:\\LFTC\\Laboratoare\\src\\main\\java\\files\\sample1.txt";
+    private static final String FILE_INPUT = "D:\\LFTC\\Laboratoare\\src\\main\\java\\files\\sample2.txt";
     private static final String FILE_OUTPUT = "D:\\LFTC\\Laboratoare\\src\\main\\java\\files\\output.txt";
     private EndlicherAutomat endlicherAutomat;
 
