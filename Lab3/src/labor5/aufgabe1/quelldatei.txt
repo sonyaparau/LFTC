@@ -1,0 +1,4 @@
+Aufgabe 1. Fur den Input soll eine Klasse Characters erstellet werden, mit den Methoden nextChar()
+und rollBack().
+Ein Objekt dieser Klasse wird eine Quelldatei lesen und anhand der obigen zwei Methoden einem
+Scanner zur Verfugung stellen. (Im Hintergrund darf, diesmal, die ganze Datei als String dargestellt werden).
