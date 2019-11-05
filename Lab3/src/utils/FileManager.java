@@ -37,7 +37,7 @@ public class FileManager {
      * Exception, falls die Datei, aus der man den
      *      EA lesen soll, nicht existiert.
      * */
-    public void readAutomatFromFile(){
+    public Automat readAutomatFromFile(String path){
         BufferedReader reader;
         try {
             Integer lineCounter = 0; //auf welcher Linie wir uns im Moment befinden
@@ -45,7 +45,7 @@ public class FileManager {
             Integer kantenCounter = 0; //fur die n Kanten
             List<Kante> kanten = new ArrayList<>();
             List<Knoten> endzustande = new ArrayList<>();
-            reader = new BufferedReader(new FileReader(INPUT_FILE_PATH));
+            reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
             while (line != null) {
                 lineCounter ++; //aktualisiert den Zahler fur die neue Linie aus der Datei
@@ -103,6 +103,7 @@ public class FileManager {
             System.out.println("Datei, aus der man den EA lesen sollte, wurde nicht" +
                     "gefunden: " + e);
         }
+        return automat;
     }
 
     /**

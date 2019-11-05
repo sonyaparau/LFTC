@@ -13,9 +13,6 @@ public class Charakters {
         return dateiText;
     }
 
-    public void setDateiText(String dateiText) {
-        this.dateiText = dateiText;
-    }
 
     public Character nextChar(String string, Integer aktuellePosition) {
         int nachstePosition = aktuellePosition + 1;
@@ -45,7 +42,7 @@ public class Charakters {
             }
             reader.close();
         } catch (IOException e) {
-            System.out.println("Datei, aus der man den QUelltext lesen sollte, wurde nicht" +
+            System.out.println("Datei, aus der man den Quelltext lesen sollte, wurde nicht" +
                     "gefunden: " + e);
         }
         dateiText = textErzeuger.toString();

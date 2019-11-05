@@ -18,18 +18,18 @@ public class Main {
     public static void main(String[] args) {
 
         //stelle NEA dar
-        fileManager.readAutomatFromFile();
-        Automat automat = fileManager.getAutomat();
-        fileManager.darstelleAutomat(automat);
-
-        Automat deaAutomat = automatService.erhalteDEAAusNEA(automat);
+//        fileManager.readAutomatFromFile();
+//        Automat automat = fileManager.getAutomat();
+//        fileManager.darstelleAutomat(automat);
+//
+//        Automat deaAutomat = automatService.erhalteDEAAusNEA(automat);
 //        fileManager.darstelleAutomat(deaAutomat());
 
 
-        System.out.println();
-        eHulle(automat);
-        System.out.println();
-        eDeltaHulle(automat);
+//        System.out.println();
+//        eHulle(automat);
+//        System.out.println();
+//        eDeltaHulle(automat);
 
     }
 

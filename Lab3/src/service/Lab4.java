@@ -14,10 +14,10 @@ public class Lab4 {
 
     public static void main(String[] args) {
 
-        fileManager.readAutomatFromFile();
-        Automat automat = fileManager.getAutomat();
-        fileManager.darstelleAutomat(automat);
-        hopcroft.minimiereDEA(automat);
+//        fileManager.readAutomatFromFile();
+//        Automat automat = fileManager.getAutomat();
+//        fileManager.darstelleAutomat(automat);
+//        hopcroft.minimiereDEA(automat);
 
     }
 }

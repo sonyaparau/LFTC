@@ -18,6 +18,7 @@ public class TabellengesteuerteScanner {
     private static final String FILE_OUTPUT_PATH = "D:\\LFTC\\Lab3\\src\\labor5\\aufgabe2\\inzidenzMatrix.tab";
     private FileManager fileManager;
     private AutomatService automatService;
+    private static final String INPUT_FILE_PATH = "D:\\LFTC\\Lab3\\src\\labor5\\aufgabe2\\beispielVorlesung.txt";
 
     TabellengesteuerteScanner() {
         this.fileManager = new FileManager();
@@ -25,7 +26,7 @@ public class TabellengesteuerteScanner {
     }
 
      void erzeugeTabellen(){
-        fileManager.readAutomatFromFile();
+        fileManager.readAutomatFromFile(INPUT_FILE_PATH);
         Automat ea = fileManager.getAutomat();
 
         //Klassifikatoren
@@ -46,7 +47,7 @@ public class TabellengesteuerteScanner {
             writer.append("\n");
 
             //UBERGANGSTABELLE
-            erzeugeUbergangsTabelle(writer, ea, alpha, digits);
+            erzeugeUbergangsTabelle(writer, ea);
             writer.append("\n\n");
 
             //TOKEN TYPE TABELLE
@@ -58,8 +59,7 @@ public class TabellengesteuerteScanner {
         }
     }
 
-    private void erzeugeUbergangsTabelle(BufferedWriter writer, Automat ea,
-                                         List<String> alpha, List<String> digits) throws IOException {
+    private void erzeugeUbergangsTabelle(BufferedWriter writer, Automat ea) throws IOException {
         writer.append("UBERGANGSTABELLE(Inzidenzmatrix): ");
         writer.append("\n");
         writer.append("Zustand");
